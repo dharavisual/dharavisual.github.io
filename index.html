@@ -61,7 +61,8 @@
     linear-gradient(180deg,#0c0b0a 0%,#15110d 60%,#0c0b0a 100%);}
   .hero-bg::before{content:"";position:absolute;inset:-20%;background:conic-gradient(from 0deg at 70% 40%,transparent,rgba(212,173,114,.10),transparent 30%);animation:leak 18s linear infinite}
   @keyframes leak{to{transform:rotate(360deg)}}
-  .hero-thumb{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.28;filter:saturate(.7) contrast(1.1)}
+  .hero-thumb{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.75;filter:saturate(1.25) contrast(1.05)}
+  .hero-thumb::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(12,11,10,.88) 0%,rgba(12,11,10,.55) 45%,rgba(12,11,10,.1) 100%),linear-gradient(0deg,rgba(12,11,10,.7) 0%,transparent 35%)}
   .bar{position:absolute;left:0;right:0;height:7vh;background:#000;z-index:2}
   .bar.t{top:0}.bar.b{bottom:0}
   .hero .wrap{position:relative;z-index:3;width:100%}
@@ -395,7 +396,7 @@ const CONFIG = {
   phone: "",                           // e.g. "+1 512 555 0123" (leave blank to hide)
 
   // YouTube video ID for the hero reel (the part after watch?v=)
-  reelId: "Z0wsQ6Ixj5U",
+  reelId: "nB8d2BDcrzo",
 
   // Featured films. id = YouTube video ID. First item shows large.
   // hq: true for older videos that have no HD thumbnail.
