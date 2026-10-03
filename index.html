@@ -61,8 +61,12 @@
     linear-gradient(180deg,#0c0b0a 0%,#15110d 60%,#0c0b0a 100%);}
   .hero-bg::before{content:"";position:absolute;inset:-20%;background:conic-gradient(from 0deg at 70% 40%,transparent,rgba(212,173,114,.10),transparent 30%);animation:leak 18s linear infinite}
   @keyframes leak{to{transform:rotate(360deg)}}
-  .hero-thumb{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.75;filter:saturate(1.25) contrast(1.05)}
-  .hero-thumb::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(12,11,10,.88) 0%,rgba(12,11,10,.55) 45%,rgba(12,11,10,.1) 100%),linear-gradient(0deg,rgba(12,11,10,.7) 0%,transparent 35%)}
+  .hero-thumb{position:absolute;inset:0;overflow:hidden}
+  .collage{position:absolute;top:-20%;left:-15%;width:130%;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;align-content:start;transform:rotate(-6deg);animation:drift 40s ease-in-out infinite alternate}
+  .collage img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:4px;filter:saturate(1.35) contrast(1.08) brightness(1.05)}
+  @keyframes drift{from{transform:rotate(-6deg) translate(0,0)}to{transform:rotate(-6deg) translate(-6%,-8%)}}
+  .hero-thumb::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(12,11,10,.9) 0%,rgba(12,11,10,.6) 45%,rgba(12,11,10,.15) 100%),linear-gradient(0deg,rgba(12,11,10,.8) 0%,transparent 35%)}
+  .hero .tag,.hero .eyebrow{text-shadow:0 1px 14px rgba(0,0,0,.95)}
   .bar{position:absolute;left:0;right:0;height:7vh;background:#000;z-index:2}
   .bar.t{top:0}.bar.b{bottom:0}
   .hero .wrap{position:relative;z-index:3;width:100%}
@@ -219,6 +223,7 @@
     .hero .tag{letter-spacing:.14em;font-size:.68rem}
     .hero .tag b{margin:0 .3em}
     .bar{height:5vh}
+    .collage{grid-template-columns:repeat(2,1fr);width:170%;left:-35%;top:-10%}
   }
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
 </style>
@@ -398,6 +403,9 @@ const CONFIG = {
   // YouTube video ID for the hero reel (the part after watch?v=)
   reelId: "nB8d2BDcrzo",
 
+  // Video thumbnails used for the moving collage behind the title
+  heroCollage: ["nB8d2BDcrzo","Z0wsQ6Ixj5U","eucyivWKHyU","jVL8oYAG9rM","W8yCwpWsW7g","uR9hN5lmUEw","XPVkrnlpq9c","Ie8aRPl_ZA8","MB-iaonWAKE","Tt_RtSbTc1g","BljiHk-oKio","CUhVnPorpco","nB8d2BDcrzo","eucyivWKHyU","jVL8oYAG9rM","Z0wsQ6Ixj5U"],
+
   // Featured films. id = YouTube video ID. First item shows large.
   // hq: true for older videos that have no HD thumbnail.
   films: [
@@ -465,8 +473,8 @@ $("#filmGrid").innerHTML = CONFIG.films.map((f,i) => `
   </div>`).join("");
 $("#ytAll").href = CONFIG.socials.youtube;
 
-// hero background from reel
-if (CONFIG.reelId) $("#heroThumb").style.backgroundImage = `url(https://i.ytimg.com/vi/${CONFIG.reelId}/maxresdefault.jpg)`;
+// hero collage of video thumbnails
+if (CONFIG.heroCollage && CONFIG.heroCollage.length) $("#heroThumb").innerHTML = `<div class="collage">${CONFIG.heroCollage.map(id => `<img src="https://i.ytimg.com/vi/${id}/maxresdefault.jpg" alt="" onload="if(this.naturalWidth<200)this.src=this.src.replace('maxresdefault','hqdefault')">`).join("")}</div>`;
 
 // portrait
 if (CONFIG.portrait) $("#portrait").innerHTML = `<img src="${CONFIG.portrait}" alt="Dhara Visual">`;
